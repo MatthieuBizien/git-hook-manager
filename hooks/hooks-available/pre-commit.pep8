@@ -1,20 +1,20 @@
 #!/bin/sh
 
-FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}' | grep -e .py$)
+exec < /dev/tty
 
+FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}' | grep -e .py$)
 
 for FILE in $FILES; do
    if !( pep8 $FILE ); then
       pep8 $FILE
       CONT=true
       while $CONT; do
-         echo "What do you want to do with that file ?"
-         echo "d: diff / c:correct it / q:quit / i:ignore it / f:force commit"
-         read action
-         case action in
+         echo "What do you want to do with that file ? [dcqif]"
+         read -p "d: diff / c:correct it / q:quit / i:ignore it / f:force commit: " action
+         case $action in
             d) autopep8 -d $FILE
                ;;
-            c) autopep8 $FILE
+            c) autopep8 -i $FILE
                CONT=false
                ;;
             q) exit 1
@@ -22,6 +22,8 @@ for FILE in $FILES; do
             i) CONT=false
                ;;
             f) exit 0
+               ;;
+            *) echo "Respond by [dcqif], and not '$action'"
                ;;
             esac
             sleep 1

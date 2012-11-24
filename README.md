@@ -7,16 +7,20 @@ How to use it
 In a single git repository
 
 ```bash
+cd ~/.local/share/
+git clone https://github.com/MatthieuBizien/git-hook-manager.git
 cd your/new/repository
-git init .
 cd .git
 rm -r hooks
-git clone https://github.com/MatthieuBizien/git-hook-manager.git
+ln -s ~/.local/share/git-hook-manager/hooks .
 ```
 
 In all yours new git repositories:
 
 ```bash
-cd /usr/share/git-core/templates/ # or something like that
+cd /usr/local/share/
 sudo git clone https://github.com/MatthieuBizien/git-hook-manager.git
+cd /usr/share/git-core/templates/ # or something like that
+sudo mv hooks hooks.old
+sudo ln -s /usr/local/share/git-hook-manager/hooks .
 ```

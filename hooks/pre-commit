@@ -1,0 +1,6 @@
+#!/bin/sh
+
+enabled=$(find hooks-enabled/ -executable -type f -maxdepth 1)
+for i in enabled; do
+   ./$i | exit 1
+done

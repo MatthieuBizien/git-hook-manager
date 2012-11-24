@@ -4,6 +4,7 @@ exec < /dev/tty
 
 FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}' | grep -e .py$)
 
+
 for FILE in $FILES; do
    if !( pep8 $FILE ); then
       pep8 $FILE
@@ -17,16 +18,18 @@ for FILE in $FILES; do
             c) autopep8 -i $FILE
                CONT=false
                ;;
-            q) exit 1
+            q) echo "Quitting"
+               exit 1
                ;;
-            i) CONT=false
+            i) echo "Ignoring the pep8 conformance for this file"
+               CONT=false
                ;;
-            f) exit 0
+            f) echo "Ignoring the pep8 conformance for all files"
+               exit 0
                ;;
             *) echo "Respond by [dcqif], and not '$action'"
                ;;
             esac
-            sleep 1
       done
       exit 1
    else

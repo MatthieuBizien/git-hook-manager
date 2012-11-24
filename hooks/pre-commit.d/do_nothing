@@ -1,0 +1,2 @@
+# Do nothing, just because Git doesn't track an empty directory.
+# Add yours pre-commit hooks in that dir !

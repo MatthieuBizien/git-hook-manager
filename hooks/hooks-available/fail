@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "You have enabled the fail hook. This hook is for test only, and fail all the time."
+echo "Disable the fail hook for a normal behaviour."
+
+exit 1

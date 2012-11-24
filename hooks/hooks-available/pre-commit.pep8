@@ -1,0 +1,35 @@
+#!/bin/sh
+
+FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}' | grep -e .py$)
+
+
+for FILE in $FILES; do
+   if !( pep8 $FILE ); then
+      pep8 $FILE
+      CONT=true
+      while $CONT; do
+         echo "What do you want to do with that file ?"
+         echo "d: diff / c:correct it / q:quit / i:ignore it / f:force commit"
+         read action
+         case action in
+            d) autopep8 -d $FILE
+               ;;
+            c) autopep8 $FILE
+               CONT=false
+               ;;
+            q) exit 1
+               ;;
+            i) CONT=false
+               ;;
+            f) exit 0
+               ;;
+            esac
+            sleep 1
+      done
+      exit 1
+   else
+      echo "pep8 is ok for $FILE"
+   fi
+done
+
+exit 0

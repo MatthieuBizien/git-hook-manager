@@ -1,6 +1,8 @@
 #!/bin/sh
 
-enabled=$(find hooks-enabled/ -executable -type f -maxdepth 1)
-for i in enabled; do
+BASE_PATH="`dirname \"$0\"`"
+enabled=$(find $BASE_PATH/hooks-enabled/ -executable -type f -maxdepth 1)
+for i in $enabled; do
+   echo $i
    ./$i | exit 1
 done

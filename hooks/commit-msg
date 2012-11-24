@@ -1,0 +1,8 @@
+#!/bin/sh
+
+BASE_PATH="`dirname \"$0\"`"
+enabled=$(find $BASE_PATH/commit-msg.d/ -executable -type f -maxdepth 1)
+for i in $enabled; do
+   echo $i
+   ./$i | exit 1
+done

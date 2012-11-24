@@ -1,8 +1,5 @@
 #!/bin/sh
 
-echo "WTF ???"
-exit 1
-
 exec < /dev/tty
 
 FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}' | grep -e .py$)

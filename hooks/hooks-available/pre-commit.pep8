@@ -31,7 +31,6 @@ for FILE in $FILES; do
                ;;
             esac
       done
-      exit 1
    else
       echo "pep8 is ok for $FILE"
    fi

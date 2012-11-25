@@ -4,7 +4,7 @@ BASE_PATH="`dirname \"$0\"`"
 enabled=$(find $BASE_PATH/pre-commit.d/ -maxdepth 1 -type f -o -type l)
 for i in $enabled; do
    if [ -x $i ]; then
-      ./$i
+      ./$i || exit 1
    else
       echo "Warning : non executable file $i"
    fi

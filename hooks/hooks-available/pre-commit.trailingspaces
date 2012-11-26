@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}' | grep -e .py$)
+FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}')
+
+for FILE in $FILES; do
+echo "exe"
+   if ( grep -qq " $" $FILE ); then
+      echo "Trailing spaces in $FILE"
+      exit 1
+   fi
+done
+
+echo "done"
+exit 0
